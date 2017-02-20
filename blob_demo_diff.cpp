@@ -1,7 +1,7 @@
 #include <vector>
 #include <iostream>
 #include <caffe/blob.hpp>
-
+#include <caffe/util/io.hpp>
 using namespace std;
 using namespace caffe;
 
@@ -30,6 +30,24 @@ int main(void){
 
 	cout<<"ASUM :"<<a.asum_data()<<endl;
 	cout<<"SUMSQ :"<<a.sumsq_data()<<endl;
+	BlobProto bp;
+	a.ToProto(&bp, true);
+	WriteProtoToBinaryFile(bp,"a_test.blob");
+	BlobProto bp2;
+	ReadProtoFromBinaryFileOrDie("a_test.blob",&bp2);
+	Blob<float> b;
+	b.FromProto(bp2,true);
+	for(int u = 0; u < b.num(); u ++){
+		for(int v = 0; v < b.channels(); v++){
+			for(int w = 0;w< b.height();w++){
+				for(int x = 0;x<b.width();x++){
+					cout<<"b["<<u<<"]["<<v<<"]["<<w<<"]["<<x<<"] = "<<b.data_at(u,v,w,x)<<endl;
+					
+				}
+			}
+		}
+	} 
+
  	return 0;
 	
 
