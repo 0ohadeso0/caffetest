@@ -1,0 +1,2 @@
+g++ -o blob_diff blob_demo_diff.cpp -I /home/hades/machinelearning/caffe-master/include/ -I /home/hades/machinelearning/caffe-master/.build_release/src/ -I /usr/local/cuda-8.0/include  -L /home/hades/machinelearning/caffe-master/build/lib/ -lcaffe -lglog -lboost_system
+
